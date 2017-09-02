@@ -1,0 +1,25 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	], 
+
+	"settings":
+	{
+         "sublimegdb_executables":
+         {
+             "sf":
+             {
+                 "workingdir": ".",
+                 "commandline": "make && gdb --interpreter=mi ./sf"
+             },
+             "sftest":
+             {
+                 "workingdir": "/home/us/sf/make",
+                 "commandline": "make -C /home/us/sf/make && gdb --interpreter=mi /home/us/sf/make/MainTest"
+             }
+         }
+	}
+}
