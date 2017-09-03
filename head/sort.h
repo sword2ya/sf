@@ -2,6 +2,17 @@
 
 #include <cstddef>
 
+namespace sortutil
+{
+	template<class T>
+	void swap(T& left, T& right)
+	{
+		T temp(left);
+		left = right;
+		right = temp;
+	}
+}
+
 
 template<class T>
 class LessCompare
@@ -73,4 +84,39 @@ template<class T>
 void SelectSort(T* arrData, size_t nCount )
 {
 	SelectSort(arrData, nCount, LessCompare<T>());
+}
+
+template<class T, class Comp>
+void Merge(T* pArrary, size_t left, size_t middle, size_t right, Comp comp)
+{
+	int nCountL = middle - left + 1;
+	int nCountR = right - middle;
+	int nCount = nCountL + nCountR;
+	T* arrLeft = new T[nCountL];
+	T* arrRight = new T[nCountR];
+	for (int i = 0; i < nCountL; ++i)
+	{
+		arrLeft[i] = pArrary[left+i];
+	}
+	for (int i = 0; i < nCountR; ++i)
+	{
+		arrRight[i] = pArrary[middle+1+i];
+	}
+
+	int j = 0, k = 0;
+	for (int i = 0; i < nCount; ++i)
+	{
+		if (j >= nCountL )
+		{
+			pArrary[left+i] = arrRight[k++];
+		}
+		else if (k >= nCountR || comp(arrLeft[j], arrRight[k]))
+		{
+			pArrary[left+i] = arrLeft[j++];
+		}
+		else 
+		{
+			pArrary[left+i] = arrRight[k++];
+		}
+	}
 }
