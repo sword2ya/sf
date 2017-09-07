@@ -12,6 +12,7 @@ class CSortTest : public testing::Test
 public:
 	CSortTest();
 	~CSortTest();
+
 protected:
 	void TestTemplate(sorttest::SortFunc pSortFunc, bool bLess );
 	void InitData_Ordered(size_t nCount, int** pArrData, bool bLess );

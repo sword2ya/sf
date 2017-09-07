@@ -1,6 +1,8 @@
 #pragma once 
 
+#include <heap.h>
 #include <cstddef>
+#include "sf_function.h"
 
 namespace sortutil
 {
@@ -14,25 +16,6 @@ namespace sortutil
 }
 
 
-template<class T>
-class LessCompare
-{
-public:
-	bool operator()(const T& left, const T& right) const 
-	{
-		return left < right;
-	}
-};
-
-template<class T>
-class GreaterCompare 
-{
-public:
-	bool operator( )( const T& left, const T& right) const 
-	{
-		return left > right;
-	}
-};
 
 template<class T, class Comp>
 void InsertionSort(T* arrData, size_t nCount,  Comp comp)
@@ -118,5 +101,35 @@ void Merge(T* pArrary, size_t left, size_t middle, size_t right, Comp comp)
 		{
 			pArrary[left+i] = arrRight[k++];
 		}
+	}
+}
+
+template<class T, class Comp>
+class ReverseComp
+{
+public:
+	ReverseComp(){
+		this->comp = Comp();
+	}
+	const bool operator()(const T& left, const T& right) const
+	{
+		return !comp(left, right);
+	}
+private:
+	Comp comp;
+};
+
+template<class T, class Comp>
+void HeapSort(T* arrData, size_t nCount)
+{
+	typedef ReverseComp<T, Comp>  MyComp;
+	Heap_Build<T, MyComp>(arrData, nCount);
+	size_t nHeapSize = nCount;
+	while (nHeapSize > 1)
+	{
+		using std::swap;
+		swap(arrData[0], arrData[nHeapSize - 1]);
+		Heap_Heapify<T, MyComp>(arrData, nHeapSize-1, 0);
+		--nHeapSize;
 	}
 }
