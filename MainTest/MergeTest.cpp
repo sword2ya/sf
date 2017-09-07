@@ -7,7 +7,9 @@ class CMergeTest : public testing::Test
 protected:
 	void Merge(int *arrData, size_t nLeft, size_t nMiddle, size_t nRight)
 	{
-		::Merge(arrData, nLeft, nMiddle, nRight, LessCompare<int>());
+		int *buffer = new int[nRight-nLeft+1];
+		::Merge<int, LessCompare<int> >(arrData, nLeft, nMiddle, nRight, buffer);
+		delete buffer;
 	}
 };
 

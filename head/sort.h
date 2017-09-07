@@ -70,13 +70,14 @@ void SelectSort(T* arrData, size_t nCount )
 }
 
 template<class T, class Comp>
-void Merge(T* pArrary, size_t left, size_t middle, size_t right, Comp comp)
+void Merge(T* pArrary, size_t left, size_t middle, size_t right, T* pArrayBuffer)
 {
+	Comp comp;
 	int nCountL = middle - left + 1;
 	int nCountR = right - middle;
 	int nCount = nCountL + nCountR;
-	T* arrLeft = new T[nCountL];
-	T* arrRight = new T[nCountR];
+	T* arrLeft = pArrayBuffer;
+	T* arrRight = pArrayBuffer + nCountL;
 	for (int i = 0; i < nCountL; ++i)
 	{
 		arrLeft[i] = pArrary[left+i];
